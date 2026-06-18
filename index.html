@@ -144,14 +144,23 @@
         .nav-btn:hover { background-position: right center; transform: translateY(-3px); box-shadow: 0 8px 25px rgba(236, 72, 153, 0.4); }
 
         /* --- Layout & Glass Cards --- */
-        .section-container { padding: 140px 8% 80px; max-width: 1200px; margin: 0 auto; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; }
+        .section-container {
+            padding: clamp(70px, 8vw, 120px) 5% 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+            min-height: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            box-sizing: border-box;
+        }
 
         .glass-card {
             background: var(--glass-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--glass-border); border-radius: 24px; padding: 3rem;
+            border: 1px solid var(--glass-border); border-radius: 24px; padding: clamp(1.2rem, 2.5vw, 2.5rem);
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
             transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            margin-bottom: 2rem; position: relative; overflow: hidden;
+            margin-bottom: 1.5rem; position: relative; overflow: hidden;
         }
 
         .glass-card::before {
@@ -163,9 +172,13 @@
         .glass-card:hover { transform: translateY(-8px); border-color: var(--glass-hover-border); box-shadow: 0 15px 45px rgba(168, 85, 247, 0.15); }
 
         .page-title {
-            text-align: center; margin-bottom: 4rem;
+            text-align: center;
+            margin-bottom: clamp(1.5rem, 3vw, 3rem);
             background: linear-gradient(135deg, #ffffff 20%, var(--accent) 50%, var(--accent-purple) 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 3rem;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: clamp(2.2rem, 4vw, 3rem);
+            line-height: 1.1;
         }
 
         /* --- Hero Section Specifics --- */
@@ -202,18 +215,56 @@
         .summary { color: var(--text-muted); line-height: 1.8; max-width: 800px; font-size: 1.15rem; }
 
         /* --- Experience Dynamic Timeline --- */
-        .timeline { border-left: 3px solid var(--glass-border); padding-left: 3rem; margin-left: 1rem; }
-        .timeline-item { margin-bottom: 3.5rem; position: relative; }
+        .timeline {
+            border-left: 3px solid var(--glass-border);
+            padding-left: clamp(1rem, 3vw, 2.5rem);
+            margin-left: 0;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .timeline-item {
+            margin-bottom: 2rem;
+            position: relative;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
         .timeline-dot {
             position: absolute; width: 20px; height: 20px; background: var(--gradient-primary); border-radius: 50%;
             left: -3.65rem; top: 0.6rem; box-shadow: 0 0 20px var(--accent-purple); transition: transform 0.4s bounce;
         }
         .timeline-item:hover .timeline-dot { transform: scale(1.4); box-shadow: 0 0 30px var(--accent-pink); }
-        .timeline-item h3 { font-size: 1.8rem; background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .timeline-item h4 { margin: 0.5rem 0 1.2rem; color: var(--text-main); font-weight: 500; font-size: 1.15rem; }
-        .timeline-item h4 span { color: var(--text-muted); font-size: 0.95rem; margin-left: 0.5rem; font-weight: 400; }
-        .timeline-item ul { padding-left: 1.2rem; color: var(--text-muted); }
-        .timeline-item ul li { margin-bottom: 0.8rem; font-size: 1.05rem; }
+        .timeline-item h3 {
+            font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+        .timeline-item h4 {
+            margin: 0.5rem 0 1rem;
+            color: var(--text-main);
+            font-weight: 500;
+            font-size: clamp(1rem, 1.5vw, 1.15rem);
+            line-height: 1.45;
+        }
+        .timeline-item h4 span {
+            display: block;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-top: 0.35rem;
+            margin-left: 0;
+            font-weight: 400;
+        }
+        .timeline-item ul {
+            padding-left: 1rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+        .timeline-item ul li {
+            margin-bottom: 0.75rem;
+            font-size: clamp(0.95rem, 1.2vw, 1.05rem);
+            line-height: 1.75;
+        }
 
         /* --- Education Elements --- */
         .center-card { text-align: center; display: flex; flex-direction: column; align-items: center; }
@@ -221,10 +272,35 @@
         .center-card:hover .edu-logo { transform: translateY(-5px); }
 
         /* --- Grid & Software Styling --- */
-        .modern-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.8rem; }
-        .tool-card { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2.5rem 1.5rem; text-align: center; }
-        .tool-card img { width: 65px; height: 65px; object-fit: contain; margin-bottom: 1.2rem; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .tool-card:hover img { transform: scale(1.25) rotate(10deg); filter: drop-shadow(0 0 10px var(--accent)); }
+        .modern-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(160px, 1fr));
+            gap: 1rem;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .tool-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.4rem 1rem;
+            text-align: center;
+            min-height: 140px;
+        }
+        .tool-card img {
+            width: 52px;
+            height: 52px;
+            object-fit: contain;
+            margin-bottom: 0.9rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .tool-card p {
+            margin: 0;
+            font-size: 0.98rem;
+            line-height: 1.4;
+        }
+        .tool-card:hover img { transform: scale(1.15) rotate(8deg); filter: drop-shadow(0 0 10px var(--accent)); }
 
         /* --- Portfolio Section --- */
         .portfolio-group { margin-bottom: 5rem; }
@@ -346,11 +422,29 @@
             .hamburger.active .bar:nth-child(2) { opacity: 0; }
             .hamburger.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
             
-            .timeline { padding-left: 1.5rem; margin-left: 0.5rem; }
-            .timeline-dot { left: -2.25rem; width: 16px; height: 16px; }
+            .timeline { padding-left: 1.25rem; margin-left: 0; }
+            .timeline-dot { left: -2rem; width: 16px; height: 16px; top: 0.75rem; }
+            .timeline-item { margin-bottom: 1.75rem; }
+            .timeline-item h3 { font-size: 1.4rem; }
+            .timeline-item h4 { font-size: 1rem; }
+            .timeline-item ul { padding-left: 0.9rem; }
+            .timeline-item ul li { font-size: 0.94rem; }
+            .modern-grid { grid-template-columns: repeat(2, minmax(140px, 1fr)); gap: 0.85rem; }
+            .tool-card { padding: 1rem; min-height: 130px; }
+            .tool-card img { width: 48px; height: 48px; }
             .footer-bottom { flex-direction: column; gap: 1.5rem; text-align: center; }
             .pdf-modal-content { width: 95%; height: 85%; }
             .close-modal { top: 10px; right: 10px; }
+        }
+
+        @media (max-width: 480px) {
+            .section-container { padding: 55px 4% 35px; }
+            .modern-grid { grid-template-columns: repeat(2, minmax(130px, 1fr)); gap: 0.7rem; }
+            .tool-card { padding: 0.9rem 0.75rem; min-height: 120px; }
+            .tool-card img { width: 44px; height: 44px; }
+            .page-title { font-size: clamp(1.9rem, 5vw, 2.4rem); }
+            .timeline { padding-left: 0.9rem; }
+            .timeline-dot { left: -1.6rem; width: 14px; height: 14px; }
         }
     </style>
 </head>
