@@ -29,6 +29,7 @@
             scroll-behavior: smooth;
         }
 
+        html { scroll-padding-top: 72px; }
         body {
             background-color: var(--bg-color);
             color: var(--text-main);
@@ -37,6 +38,7 @@
             position: relative;
             font-size: 16px;
             line-height: 1.6;
+            padding-top: 72px;
         }
 
         /* --- Custom Scrollbar --- */
@@ -106,8 +108,10 @@
         .glass-nav {
             position: fixed; top: 0; left: 0; width: 100%;
             display: flex; justify-content: space-between; align-items: center;
-            padding: 1.2rem 8%;
-            background: rgba(7, 11, 20, 0.8);
+            padding: 0 5%;
+            min-height: 72px;
+            height: 72px;
+            background: rgba(7, 11, 20, 0.92);
             backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--glass-border);
             z-index: 1000; transition: all 0.3s ease;
@@ -182,12 +186,28 @@
         }
 
         /* --- Hero Section Specifics --- */
-        .hero-section { text-align: center; display: flex; flex-direction: column; align-items: center; }
-        .profile-wrapper { position: relative; margin-bottom: 2.5rem; }
+        .hero-section {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 860px;
+            margin: 0 auto 1.5rem;
+            padding: clamp(1rem, 3vw, 1.8rem) 1rem;
+            min-height: 100%;
+        }
+        .profile-wrapper { position: relative; margin-bottom: clamp(1.2rem, 3vw, 2rem); }
         
         .profile-img {
-            width: 180px; height: 180px; border-radius: 50%; object-fit: cover; position: relative; z-index: 2;
-            border: 4px solid rgba(255, 255, 255, 0.1); transition: transform 0.4s ease;
+            width: clamp(110px, 18vw, 160px);
+            height: clamp(110px, 18vw, 160px);
+            border-radius: 50%;
+            object-fit: cover;
+            position: relative;
+            z-index: 2;
+            border: 4px solid rgba(255, 255, 255, 0.12);
+            transition: transform 0.4s ease;
         }
         
         .hero-section:hover .profile-img { transform: scale(1.05); }
@@ -200,12 +220,17 @@
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
         .hero-section h1 { margin-bottom: 0.2rem; }
-        .hero-section h2 { color: var(--accent); font-weight: 500; font-size: 1.5rem; margin-bottom: 2.5rem; }
+        .hero-section h2 {
+            color: var(--accent);
+            font-weight: 500;
+            font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+            margin-bottom: clamp(1rem, 3vw, 1.8rem);
+        }
 
-        .contact-badges { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2.5rem; }
+        .contact-badges { display: flex; gap: 0.85rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1.8rem; }
         .badge {
-            background: rgba(255, 255, 255, 0.04); padding: 10px 24px; border-radius: 30px; border: 1px solid var(--glass-border);
-            font-size: 0.95rem; font-weight: 500; color: var(--text-main); display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(255, 255, 255, 0.04); padding: 9px 18px; border-radius: 30px; border: 1px solid var(--glass-border);
+            font-size: 0.9rem; font-weight: 500; color: var(--text-main); display: inline-flex; align-items: center; gap: 8px;
             transition: all 0.3s ease; text-decoration: none; position: relative; overflow: hidden;
         }
         .contact-badges a.badge:hover {
@@ -301,6 +326,47 @@
             line-height: 1.4;
         }
         .tool-card:hover img { transform: scale(1.15) rotate(8deg); filter: drop-shadow(0 0 10px var(--accent)); }
+
+        /* --- Awards & Recognition --- */
+        .awards-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1rem;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .award-card {
+            padding: 1.4rem;
+            margin-bottom: 0;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
+        .award-card h3 {
+            font-size: 1rem;
+            margin-bottom: 0.9rem;
+            color: var(--accent);
+        }
+        .award-card ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+        }
+        .award-card li {
+            position: relative;
+            padding-left: 1rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        .award-card li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--accent-pink);
+        }
 
         /* --- Portfolio Section --- */
         .portfolio-group { margin-bottom: 5rem; }
@@ -410,6 +476,9 @@
         }
 
         @media (max-width: 768px) {
+            .glass-nav { padding: 0 4%; height: auto; min-height: 64px; }
+            .nav-links { gap: 1.4rem; }
+            .nav-btn { padding: 0.55rem 1.2rem; }
             .hamburger { display: block; }
             .nav-links {
                 position: fixed; top: 0; right: -100%; height: 100vh; width: 280px;
@@ -422,6 +491,11 @@
             .hamburger.active .bar:nth-child(2) { opacity: 0; }
             .hamburger.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
             
+            .hero-section { padding: 1.2rem 1rem; }
+            .profile-img { width: clamp(100px, 24vw, 140px); height: clamp(100px, 24vw, 140px); }
+            .hero-section h2 { font-size: clamp(1.1rem, 3vw, 1.35rem); }
+            .summary { max-width: 100%; }
+
             .timeline { padding-left: 1.25rem; margin-left: 0; }
             .timeline-dot { left: -2rem; width: 16px; height: 16px; top: 0.75rem; }
             .timeline-item { margin-bottom: 1.75rem; }
@@ -432,12 +506,21 @@
             .modern-grid { grid-template-columns: repeat(2, minmax(140px, 1fr)); gap: 0.85rem; }
             .tool-card { padding: 1rem; min-height: 130px; }
             .tool-card img { width: 48px; height: 48px; }
+            .awards-grid { grid-template-columns: 1fr; }
+            .award-card { padding: 1.2rem; }
             .footer-bottom { flex-direction: column; gap: 1.5rem; text-align: center; }
             .pdf-modal-content { width: 95%; height: 85%; }
             .close-modal { top: 10px; right: 10px; }
         }
 
         @media (max-width: 480px) {
+            .glass-nav { padding: 0 3.5%; }
+            .hero-section { padding: 1rem 0.8rem; }
+            .profile-img { width: clamp(90px, 30vw, 120px); height: clamp(90px, 30vw, 120px); }
+            .hero-section h2 { font-size: clamp(1rem, 3.5vw, 1.25rem); }
+            .nav-links { gap: 1rem; }
+            .nav-btn { padding: 0.5rem 1rem; font-size: 0.85rem; }
+            .summary { font-size: 1rem; }
             .section-container { padding: 55px 4% 35px; }
             .modern-grid { grid-template-columns: repeat(2, minmax(130px, 1fr)); gap: 0.7rem; }
             .tool-card { padding: 0.9rem 0.75rem; min-height: 120px; }
@@ -445,6 +528,7 @@
             .page-title { font-size: clamp(1.9rem, 5vw, 2.4rem); }
             .timeline { padding-left: 0.9rem; }
             .timeline-dot { left: -1.6rem; width: 14px; height: 14px; }
+            .award-card li { font-size: 0.9rem; }
         }
     </style>
 </head>
@@ -461,6 +545,7 @@
         <ul class="nav-links">
             <li><a href="#about">About</a></li>
             <li><a href="#experience">Experience</a></li>
+            <li><a href="#awards">Awards</a></li>
             <li><a href="#education">Education</a></li>
             <li><a href="#skills">Software Skills</a></li>
             <li><button class="nav-btn" onclick="location.href='#portfolio'">Portfolio</button></li>
@@ -488,7 +573,9 @@
                 </div>
                 
                 <p class="summary">
-                    Value-driven Visual Merchandiser professional with 13 Years of experience committed to organizational objectives. Highly Creative with the ability to drive brands forward through innovative visual schemes and concepts.
+         Value driven Visual Merchandiser professional with 13 Years of experience who is commi ed to organiza onal 
+objective. Highly Creative with ability to drive brand forward through innova ve visual scheme and concepts.
+I Exper se in Design, Project, Research and create an excellent Consumer experience through visual merchandise.  
                 </p>
             </div>
         </section>
@@ -502,8 +589,32 @@
                     <h3>BLACKBERRYS</h3>
                     <h4>Visual Merchandiser / NSO <span>| March 2022 Onwards</span></h4>
                     <ul>
-                        <li>Designing Pamphlet & Paper Ad</li>
-                        <li>New Store Opening, Yearly Budgeting & Cost Control</li>
+                        <li>Store Handling all channel COCO, FOFO, LFR, MBO.</li>
+                        <li>Visual Presenta on of Store: Standardiza on of visual presenta on of Merchandise,
+  Planogram making of the store, Placement of Fixture as per planogram, Planning and
+  following the display calendar and execu ng acoss all the store, Training on VM & 
+  Merchandise presenta on of the retail staff crea ng VM champs for the stores, 
+  Management of all visual, signage's for in store & also for the brand. </li>
+        <li>Store Opening: Responsible for new store opening set up, Merchandise display, 
+  Planogram making as per layout of the store, Merchandise zoning, Ordering of all
+  peripherals required, Artwork making for the visuals and signage's, Store VM inventory
+  management and sending pic to the Opera on head & GM</li>
+  <li> Design: Responsible for Focal Points & Windows: Conceptualizing design & execu on
+  of focal points, ensuring all focal points are well maintained, Conceptualizing, and 
+  designing of story board, Seasonal display, Fes ve display, Eoss and Windows of the 
+  stores.</li>
+  <li>Cost Management: Cost monitoring for VM & ensuring spends are within the alloted
+  budget, Maintenance of VM, peripherals, Props, Fixture & Documenta on via PPT, Pics, 
+  Store visit.</li>
+  <li>Training & Leadership: Responsible for team training, team building, educa ng floor 
+   staff reg ( VM , Products , Sales ) inspiring them for promo ons and career vision.</li>
+   <li> Trade Show: Responsible for smooth launch of Trade show / Buyer Meet from
+    design to execu on with minimal c ost.</li>
+    <li> Project: Have worked on the new fixture development , store ideaza on or Next Gen
+    stores for the brand. </li>
+    <li>Vendor Management : From developing new vendor to closing working with the
+     vendor on material & props for the effec ve and smooth execu on as per me line
+     across the region/ territory.   </li>
                     </ul>
                 </div>
 
@@ -512,12 +623,10 @@
                     <h3>Zivame</h3>
                     <h4>Visual Merchandiser North & West <span>| Aug 2021 - March 2022</span></h4>
                     <ul>
-                        <li> Vendor Management: Coordina ng of order and procurement of necessary POS material by Lining with HO  and 
-                          vendor, crea ng and mapping new vendor at best possible rates.</li>
-                        <li>Developed new POS communica on for better visibility of offer collateral</li>
-                        <li>Team Training & educa ng team and floor staffs on VM aspects and its importance.</li>
-                        <li> Market Research: Conduc ng surveys and monitoring compe tor moves to meet customers move according to the latest 
-                        market trends.</li>
+                        <li>Vendor management, coordinating orders and procurement of necessary POS materials.</li>
+                        <li>Developed new POS communication for better visibility of offers and promotions.</li>
+                        <li>Trained store teams and educated floor staff on VM standards and importance.</li>
+                        <li>Conducted market research and monitored competitor activity to align with trends.</li>
                     </ul>
                 </div>
 
@@ -526,12 +635,12 @@
                     <h3>WOODLAND</h3>
                     <h4>VM + Creatives <span>| Oct 2019 - March 2020</span></h4>
                     <ul>
-                        <li> Handled VM , Design & VM opera on or the Brand</li>
-                        <li>A-Z from Planning to execu on come up with crea ve   and ar s c concept for in store display.</li>
-                        <li>Carrying out the full in store VM execu on & maintaining same look across all the store.</li>
-                        <li>Designing Docket & Accurate Docket Implementa on via props sourcing vendor management.</li>
-                        <li>Crea ng Window, Focal Point, Color Blocking, Mannequin Styling, Seasonal display, Zoning.</li>
-                        <li>Organizing and monitoring in store events, discount sale EOSS and more ideas to a act customers.</li>
+                        <li>Handled VM, design, and VM operations for the brand.</li>
+                        <li>Created creative and artistic concepts for in-store displays.</li>
+                        <li>Executed full in-store VM and maintained consistency across stores.</li>
+                        <li>Designed docket and implemented accurate display elements via vendor coordination.</li>
+                        <li>Created windows, focal points, color blocking, mannequin styling, seasonal displays, and zoning.</li>
+                        <li>Organized and monitored in-store events, discount sales, and customer attraction activities.</li>
                     </ul>
                 </div>
 
@@ -540,8 +649,57 @@
                     <h3>BLACKBERRYS</h3>
                     <h4>Visual Merchandiser (HO) FOFO/LFR/MBO <span>| July 2015 - Oct 2019</span></h4>
                     <ul>
-                        <li>Opened 80 new stores and coordinated signage, lights, branding, and props.</li>
-                        <li>Co-ordination with Section managers, guiding & training floor staffs.</li>
+                        <li>Handled VM opera on Design to Execu on Channel Sales.</li>
+                        <li> Planning & Execu ng of visual merchandise aspects includes conceptualiza on and execu on of windows and in store display
+  across stores and all categories.</li>
+  <li> Execu on of Theme display, Promo onal display, Festive display, Color blocking, Styling.</li>
+  <li> Opened 80 stores new stores and coordinated in terms of signage's, lights, branding, props, Pos communica on complete
+  planogram and placements</li>
+  <li>Co-ordina on with Sec on managers guiding & training floor staffs on VM aspects</li>
+  <li> Docket implementa on- Making & Execu on of Docet on Monthly / quarterly basis</li>
+  <li>Window & cluster Display-According to the ongoing themes, promo ons & trends in order to attract customer result 
+  incremen ng of bill and basket size</li>
+  <li>Making in store communica on Making of the collaterals design & communica on and execu ng them across all channels
+  & partners.</li>
+  <li>Floor Staff Training-Training floor staff on basic of VM knowledge cross merchandising, color blocking, styling, zoning, Offer 
+  communica on making maintaining uniformity.</li>
+  <li> Marke ng Ac vi es Handling New store marke ng ac vi e for Store opening, leaflet prin ng , hoarding & other BTL ac vi es.</li>
+  <li> Mannequin styling, Docket implementa on.</li>
+</ul>
+                </div>
+
+                <div class="glass-card timeline-item scroll-animate">
+                    <div class="timeline-dot"></div>
+                    <h3>Future Group</h3>
+                    <h4>Visual Merchandiser <span>| Oct 2011 - June 2015</span></h4>
+                    <ul>
+                        <li>Handled VM functions across all stores, from staff training and styling to hygiene, audit, and VM budgeting.</li>
+                        <li>Created and followed guidelines as per HO instructions for consistent store execution.</li>
+                        <li>Acted as overall caretaker of VM and marketing functions for the cluster, including store VM activities, events, and BTL activities.</li>
+                        <li>Award winner of the Pan India Display Contest in Big Bazaar.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="awards" class="section-container">
+            <h1 class="page-title scroll-animate">AWARDS & RECOGNITION</h1>
+            <div class="awards-grid">
+                <div class="glass-card award-card scroll-animate">
+                    <ul>
+                        <li>Won cash reward of Rs. 50,000 at BLACKBERRYS.</li>
+                        <li>Winner of the PAN INDIA DISPLAY CONTEST held across 194 stores of Big Bazaar.</li>
+                        <li>Cluster winner for organizing the best CUSTOMER CONNECT ACTIVITY at Future Group.</li>
+                        <li> Have got double promo on in Blackberrys.</li>
+                    </ul>
+                </div>
+                <div class="glass-card award-card scroll-animate">
+                    <ul>
+                        
+                        <li> Have successfully opened around 80 stores in Blackberrys.</li>
+                        <li> Have launched factory outlets channel all VM concept of Blackberrys.</li>
+                        <li> One-point Custodian of VM design team.</li>
+                        <li> Have handled Mul ple NSO.</li>
                     </ul>
                 </div>
             </div>
